@@ -14,11 +14,49 @@
     <link rel="stylesheet" type="text/css" href="assets/css/app.css" />
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <header>
+        <div class="container">
+          <div class="row">
+            <div class="col col-xs-12">
+              <h1 v-text="sitename"></h1>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main>
+        <div class="container">
+          <div class="row product">
+            <div class="col col-sm-4 col-xs-12">
+              <figure>
+                <img :src="product.image" />
+              </figure>
+            </div>
+            <div class="col col-sm-8 col-xs-12">
+              <h2 v-text="product.title"></h2>
+              <p v-html="product.description"></p>
+              <p v-text="product.price" class="price"></p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
 
     <script type="text/javascript">
       var webstore = new Vue({
         el: '#app',
+        data: {
+          sitename: 'Goods for pets',
+          product: {
+            id: 1001,
+            title: 'Cat Food, 25lb bag',
+            description:
+              'A 25 pound bag of <em>irresistible</em>,' +
+              'organic goodness for your cat.',
+            price: 2000,
+            image: 'assets/images/product-fullsize.png',
+          },
+        },
       });
     </script>
   </body>
