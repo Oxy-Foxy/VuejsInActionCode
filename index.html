@@ -35,7 +35,7 @@
             <div class="col col-sm-8 col-xs-12">
               <h2 v-text="product.title"></h2>
               <p v-html="product.description"></p>
-              <p v-text="product.price" class="price"></p>
+              <p class="price">{{ getFormattedPrice(product.price) }}</p>
             </div>
           </div>
         </div>
@@ -43,6 +43,7 @@
     </div>
 
     <script type="text/javascript">
+      // Vue
       var webstore = new Vue({
         el: '#app',
         data: {
@@ -55,6 +56,26 @@
               'organic goodness for your cat.',
             price: 2000,
             image: 'assets/images/product-fullsize.png',
+          },
+        },
+        methods: {
+          // added this in methods instead of filtes because filters are deprecated in Vue3
+          getFormattedPrice(price) {
+            if (!parseInt(price)) {
+              return '';
+            }
+            if (price > 99999) {
+              var priceString = (price / 100).toFixed(2);
+              var priceArray = priceString.split('').reverse();
+              var index = 3;
+              while (priceArray.length > index + 3) {
+                priceArray.splice(index + 3, 0, ',');
+                index += 4;
+              }
+              return '$' + priceArray.reverse().join('');
+            } else {
+              return '$' + (price / 100).toFixed(2);
+            }
           },
         },
       });
